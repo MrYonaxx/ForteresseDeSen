@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using Sirenix.OdinInspector;
+using System.Linq;
 
 [System.Serializable]
 public class GameBasketObjectData
@@ -36,9 +37,7 @@ public class GameBasketObjectData
         get { return speed; }
     }
 
-    [HorizontalGroup("BasketObjectData")]
-    [VerticalGroup("BasketObjectData/Right")]
-    [HideIf("gameBasketPrefab", null)]
+    [HorizontalGroup("BasketObjectCollect")]
     [SerializeField]
     int numberToCollectMin;
     public int NumberToCollectMin
@@ -46,9 +45,7 @@ public class GameBasketObjectData
         get { return numberToCollectMin; }
     }
 
-    [HorizontalGroup("BasketObjectData")]
-    [VerticalGroup("BasketObjectData/Right")]
-    [HideIf("gameBasketPrefab", null)]
+    [HorizontalGroup("BasketObjectCollect")]
     [SerializeField]
     int numberToCollectMax;
     public int NumberToCollectMax
@@ -93,22 +90,39 @@ public class TurretBasketPattern
         get { return time; }
     }
 
-    /*[HorizontalGroup("ShootTime", LabelWidth = 100, Width = 200)]
+    [HorizontalGroup("Turret")]
     [SerializeField]
-    int shootNumber = -1;
-    public int ShootNumber
+    [HideLabel]
+    [ValueDropdown("GetAllTypeName")]
+    int shootID = -1;
+    public int ShootID
     {
-        get { return shootNumber; }
+        get { return shootID; }
     }
 
-    [HorizontalGroup("ShootTime")]
-    [ShowIf("shootNumber", -1)]
-    [SerializeField]
-    float[] shootTime;
-    public float[] ShootTime
+    private static List<string> GameDatabase = new List<string>();
+
+    public IList<ValueDropdownItem<int>> GetAllTypeName()
     {
-        get { return shootTime; }
-    }*/
+        var res = new ValueDropdownList<int>();
+        res.Add("Random", -1);
+        for(int i = 0; i < GameDatabase.Count; i++)
+            res.Add(GameDatabase[i], i);
+        return res;
+    }
+
+    public void SetGameDatabase(GameBasketObjectData[] gameBasketObjectDatabase)
+    {
+        GameDatabase.Clear();
+        for (int i = 0; i < gameBasketObjectDatabase.Length; i++)
+        {
+            if(gameBasketObjectDatabase[i].GameBasketPrefab != null)
+                GameDatabase.Add(gameBasketObjectDatabase[i].GameBasketPrefab.name);
+            else if(gameBasketObjectDatabase[i].ObjectSprite != null)
+                GameDatabase.Add(gameBasketObjectDatabase[i].ObjectSprite.name);
+        }
+    }
+
 }
 
 [CreateAssetMenu(fileName = "BasketPatternData", menuName = "MinigameData/BasketPatternData", order = 1)]
@@ -148,6 +162,7 @@ public class GameBasketData : ScriptableObject
 
     [Space]
     [Title("Object Database")]
+    [OnInspectorGUI("SetTurretDatabase", true)]
     [SerializeField]
     GameBasketObjectData[] gameBasketObjectDatabase;
     public GameBasketObjectData[] GameBasketObjectDatabase
@@ -155,6 +170,17 @@ public class GameBasketData : ScriptableObject
         get { return gameBasketObjectDatabase; }
     }
 
+    public void SetTurretDatabase()
+    {
+        for (int i = 0; i < patterns.Length; i++)
+        {
+            for (int j = 0; j < patterns[i].TurretPatterns.Length; j++)
+            {
+                patterns[i].TurretPatterns[j].SetGameDatabase(gameBasketObjectDatabase);
+                return;
+            }
+        }
+    }
 
     [Space]
     [Space]

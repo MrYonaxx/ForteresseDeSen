@@ -82,16 +82,23 @@ public class GameBasketManager : MonoBehaviour, IMinigame
             {
                 if (pattern[i].Time != 0)
                     yield return new WaitForSeconds(pattern[i].Time);
-                InstantiateProjectile(pattern[i].PositionX, currentShootedObject);
+                if(pattern[i].ShootID <= -1)
+                    InstantiateProjectile(pattern[i].PositionX, currentShootedObject);
+                else
+                    InstantiateProjectile(pattern[i].PositionX, pattern[i].ShootID, false);
                 currentShootedObject += 1;
             }
             yield return new WaitForSeconds(currentGameBasketData.Data.TimeBetweenPattern);
         }
     }
 
-    private void InstantiateProjectile(float positionX, int index)
+    private void InstantiateProjectile(float positionX, int index, bool objectToShootID = true)
     {
-        int objectID = currentGameBasketData.ObjectToShoot[index];
+        int objectID = 0;
+        if (objectToShootID == true)
+            objectID = currentGameBasketData.ObjectToShoot[index];
+        else
+            objectID = index;
         if (currentGameBasketData.Data.GameBasketObjectDatabase[objectID].GameBasketPrefab != null)
         {
             GameBasketObject basketObject = Instantiate(currentGameBasketData.Data.GameBasketObjectDatabase[objectID].GameBasketPrefab, transformParent);
@@ -106,6 +113,7 @@ public class GameBasketManager : MonoBehaviour, IMinigame
             basketObject.SetID(objectID);
         }
     }
+
 
 }
 
