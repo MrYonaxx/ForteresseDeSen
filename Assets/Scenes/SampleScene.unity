@@ -1337,7 +1337,7 @@ MonoBehaviour:
   minigameQuizzDatabase:
   - {fileID: 11400000, guid: e7ea684da54158044a678f7647796cf1, type: 2}
   gameModeData: {fileID: 0}
-  minigameDifficultyLevel: 3
+  minigameDifficultyLevel: 2
   textQuestion: {fileID: 942950223}
   quizzButtonPrefab:
   - {fileID: 1946759659490253848, guid: 43d8734f14233ae45b673347ad0ca487, type: 3}
