@@ -12,20 +12,55 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3ab837af5f90f6b4e8b6523713c2b5ab, type: 3}
   m_Name: BasketPatternData
   m_EditorClassIdentifier: 
-  difficultyName: 
-  numberToCollectMin: 0
-  numberToCollectMax: 0
+  difficultyName: Easy
+  numberObjectShootMin: 50
+  numberObjectShootMax: 60
+  timeBetweenPattern: 1
   gameBasketObjectDatabase:
-  - gameBasketPrefab: {fileID: 0}
+  - gameBasketPrefab: {fileID: 1581509416765963547, guid: 9876fa2f3d97be642a92f227af6c38e9,
+      type: 3}
     objectSprite: {fileID: 0}
     speed: {x: 0, y: 0}
-    totalFruit: {x: 0, y: 0}
+    numberToCollectMin: 1
+    numberToCollectMax: 2
+  - gameBasketPrefab: {fileID: 6547494303160795805, guid: b39b155ac0ffff04281d9cca7d9876ec,
+      type: 3}
+    objectSprite: {fileID: 0}
+    speed: {x: 0, y: 0}
+    numberToCollectMin: 1
+    numberToCollectMax: 2
+  - gameBasketPrefab: {fileID: 2139385266794364144, guid: af0e44ca87e27df4daa83ddaf6d31c1e,
+      type: 3}
+    objectSprite: {fileID: 0}
+    speed: {x: 0, y: 0}
+    numberToCollectMin: 1
+    numberToCollectMax: 2
   patterns:
   - note: Pattern1
     turretPatterns:
-    - startPosition: 0
-      endPosition: 0
+    - positionX: -1
+      time: 0.4
+    - positionX: 0
+      time: 0.4
+    - positionX: 1
+      time: 0.4
+  - note: Pattern2
+    turretPatterns:
+    - positionX: -1
+      time: 0.5
+    - positionX: -0.5
       time: 0
-      shootNumber: 2
-      shootTime:
-      - 0
+    - positionX: 0
+      time: 0
+    - positionX: 0.5
+      time: 0
+    - positionX: 1
+      time: 0
+  - note: Pattern3
+    turretPatterns:
+    - positionX: 1
+      time: 0.4
+    - positionX: 0
+      time: 0.4
+    - positionX: -1
+      time: 0.4

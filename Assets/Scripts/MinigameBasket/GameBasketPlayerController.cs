@@ -73,7 +73,7 @@ public class GameBasketPlayerController : MonoBehaviour
         if(collision.tag == "Interaction")
         {
             Destroy(collision.gameObject);
-            OnEventPlayerEat.Invoke(playerID);
+            OnEventPlayerEat.Invoke(collision.GetComponent<GameBasketObject>().GetID());
         }
     }
 }

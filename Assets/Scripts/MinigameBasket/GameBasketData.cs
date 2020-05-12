@@ -37,9 +37,7 @@ public class GameBasketObjectData
         get { return speed; }
     }
 
-    [HorizontalGroup("BasketObjectData")]
-    [VerticalGroup("BasketObjectData/Right")]
-    [HideIf("gameBasketPrefab", null)]
+    [HorizontalGroup("BasketObjectCollect")]
     [SerializeField]
     int numberToCollectMin;
     public int NumberToCollectMin
@@ -47,9 +45,8 @@ public class GameBasketObjectData
         get { return numberToCollectMin; }
     }
 
-    [HorizontalGroup("BasketObjectData")]
-    [VerticalGroup("BasketObjectData/Right")]
-    [HideIf("gameBasketPrefab", null)]
+    [HorizontalGroup("BasketObjectCollect")]
+    [HideLabel]
     [SerializeField]
     int numberToCollectMax;
     public int NumberToCollectMax
@@ -80,18 +77,10 @@ public class TurretBasketPattern
 {
     [HorizontalGroup("Turret", LabelWidth = 100)]
     [SerializeField]
-    float startPosition;
-    public float StartPosition
+    float positionX;
+    public float PositionX
     {
-        get { return startPosition; }
-    }
-
-    [HorizontalGroup("Turret")]
-    [SerializeField]
-    float endPosition;
-    public float EndPosition
-    {
-        get { return endPosition; }
+        get { return positionX; }
     }
 
     [HorizontalGroup("Turret")]
@@ -102,7 +91,7 @@ public class TurretBasketPattern
         get { return time; }
     }
 
-    [HorizontalGroup("ShootTime", LabelWidth = 100, Width = 200)]
+    /*[HorizontalGroup("ShootTime", LabelWidth = 100, Width = 200)]
     [SerializeField]
     int shootNumber = -1;
     public int ShootNumber
@@ -117,7 +106,7 @@ public class TurretBasketPattern
     public float[] ShootTime
     {
         get { return shootTime; }
-    }
+    }*/
 }
 
 [CreateAssetMenu(fileName = "BasketPatternData", menuName = "MinigameData/BasketPatternData", order = 1)]
@@ -143,6 +132,14 @@ public class GameBasketData : ScriptableObject
     public int NumberObjectShootMax
     {
         get { return numberObjectShootMax; }
+    }
+
+
+    [SerializeField]
+    float timeBetweenPattern;
+    public float TimeBetweenPattern
+    {
+        get { return timeBetweenPattern; }
     }
 
     [Space]
