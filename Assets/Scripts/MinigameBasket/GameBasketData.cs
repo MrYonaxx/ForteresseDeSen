@@ -26,7 +26,6 @@ public class GameBasketObjectData
         get { return objectSprite; }
     }
 
-    [Space]
     [HorizontalGroup("BasketObjectData")]
     [VerticalGroup("BasketObjectData/Right")]
     [HideIf("gameBasketPrefab", null)]
@@ -37,7 +36,9 @@ public class GameBasketObjectData
         get { return speed; }
     }
 
-    [HorizontalGroup("BasketObjectCollect")]
+    [HorizontalGroup("BasketObjectData")]
+    [VerticalGroup("BasketObjectData/Right")]
+    [HideIf("gameBasketPrefab", null)]
     [SerializeField]
     int numberToCollectMin;
     public int NumberToCollectMin
@@ -45,8 +46,9 @@ public class GameBasketObjectData
         get { return numberToCollectMin; }
     }
 
-    [HorizontalGroup("BasketObjectCollect")]
-    [HideLabel]
+    [HorizontalGroup("BasketObjectData")]
+    [VerticalGroup("BasketObjectData/Right")]
+    [HideIf("gameBasketPrefab", null)]
     [SerializeField]
     int numberToCollectMax;
     public int NumberToCollectMax

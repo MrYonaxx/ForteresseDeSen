@@ -2265,7 +2265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameBasketDatabase:
-  - {fileID: 11400000, guid: 6f0e0355b36219a448b2ffa51ab2eb51, type: 2}
+  - {fileID: 11400000, guid: 5d3b19c651993064da54e40aeda6d31e, type: 2}
   gameModeData: {fileID: 0}
   minigameDifficultyLevel: 1
   transformParent: {fileID: 932216394}
@@ -3482,7 +3482,7 @@ Animator:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 968732346}
-  m_Enabled: 1
+  m_Enabled: 0
   m_Avatar: {fileID: 0}
   m_Controller: {fileID: 9100000, guid: 2103738993a70044c81d93cd26768bd8, type: 2}
   m_CullingMode: 0
