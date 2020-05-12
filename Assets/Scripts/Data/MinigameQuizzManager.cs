@@ -8,12 +8,16 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
     [Header("Database")]
     [SerializeField]
     MinigameQuizzData[] minigameQuizzDatabase;
+    [SerializeField]
+    GameModeData gameModeData;
+    [SerializeField]
+    int minigameDifficultyLevel = 1;
 
     [Header("Draw")]
     [SerializeField]
     TextMeshProUGUI textQuestion;
     [SerializeField]
-    MinigameAnswerButton quizzButtonPrefab;
+    MinigameAnswerButton[] quizzButtonPrefab;
 
     [Header("Player")]
     [SerializeField]
@@ -23,7 +27,13 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
     List<MinigameAnswerButton> listButtons = new List<MinigameAnswerButton>();
 
 
-    [ContextMenu("test")]
+
+
+    private void Start()
+    {
+        InitializeMinigame();//Debug
+    }
+
     public void InitializeMinigame()
     {
         currentQuestion = minigameQuizzDatabase[Random.Range(0, minigameQuizzDatabase.Length - 1)].CreateQuestion(3);
@@ -33,9 +43,10 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
 
     public void CreateAnswerButton()
     {
-        for(int i = 0; i < currentQuestion.AnswerProposition.Count; i++)
+        minigameDifficultyLevel = Mathf.Clamp(minigameDifficultyLevel, 1, quizzButtonPrefab.Length);
+        for (int i = 0; i < currentQuestion.AnswerProposition.Count; i++)
         {
-            listButtons.Add(Instantiate(quizzButtonPrefab, this.transform));
+            listButtons.Add(Instantiate(quizzButtonPrefab[minigameDifficultyLevel-1], this.transform));
             listButtons[i].DrawAnswerButton(currentQuestion.AnswerProposition[i], i);
         }
     }

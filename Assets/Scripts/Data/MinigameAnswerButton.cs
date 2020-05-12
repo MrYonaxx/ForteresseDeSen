@@ -19,7 +19,7 @@ public class MinigameAnswerButton : MonoBehaviour
 
     float t = 1f;
     float time = 10f;
-    public Vector3 inertia = Vector3.zero;
+    Vector3 inertia = Vector3.zero;
 
     bool active = true;
 

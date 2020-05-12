@@ -112,9 +112,7 @@ public class CursorController : MonoBehaviour
         move = new Vector3(speedX, speedY);
         move *= speed;
 
-        rigidbodyCursor.velocity = move * Time.deltaTime;
-        /*characterController.Move(move * Time.deltaTime);
-        characterController.Move(new Vector3(0, gravity * Time.deltaTime, 0));*/
+        rigidbodyCursor.velocity = move;// (move * Time.deltaTime);
     }
 
     public void Validate()
