@@ -12,3 +12,7 @@ obj/
 Assembly-CSharp.csproj
 
 ForteresseDeSen.sln
+
+Sirenix.OdinInspector.CompatibilityLayer.Editor.csproj
+
+Sirenix.OdinInspector.CompatibilityLayer.csproj

@@ -146,7 +146,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   textAnswer: {fileID: 3983620666923547054}
   rigidbody2D: {fileID: 9085084503447497182}
-  speed: 2
+  speed: 1
   timeData: {x: 2, y: 4}
 --- !u!1 &8979612532637194373
 GameObject:

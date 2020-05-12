@@ -383,7 +383,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rigidbodyCursor: {fileID: 800989235}
-  speed: 500
+  speed: 10
   debugPlayer2: 1
   OnEventValidate:
     m_PersistentCalls:
@@ -732,7 +732,7 @@ GameObject:
   - component: {fileID: 981125204}
   - component: {fileID: 981125203}
   m_Layer: 5
-  m_Name: Canvas
+  m_Name: CanvasScanline
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1338,6 +1338,8 @@ MonoBehaviour:
   - {fileID: 11400000, guid: e7ea684da54158044a678f7647796cf1, type: 2}
   gameModeData: {fileID: 0}
   minigameDifficultyLevel: 2
+  permutationDifficultyLevel: 2
+  permutationInterval: {x: 2, y: 3}
   textQuestion: {fileID: 942950223}
   quizzButtonPrefab:
   - {fileID: 1946759659490253848, guid: 43d8734f14233ae45b673347ad0ca487, type: 3}

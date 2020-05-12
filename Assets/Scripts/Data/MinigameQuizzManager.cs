@@ -13,6 +13,12 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
     [SerializeField]
     int minigameDifficultyLevel = 1;
 
+    [Header("Permutation Parameter")]
+    [SerializeField]
+    int permutationDifficultyLevel = 2;
+    [SerializeField]
+    Vector2 permutationInterval;
+
     [Header("Draw")]
     [SerializeField]
     TextMeshProUGUI textQuestion;
@@ -26,8 +32,8 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
     public Question currentQuestion;
     List<MinigameAnswerButton> listButtons = new List<MinigameAnswerButton>();
 
-
-
+    int permutationIndex = 0;
+    private IEnumerator permutationCoroutine;
 
     private void Start()
     {
@@ -48,6 +54,12 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
         {
             listButtons.Add(Instantiate(quizzButtonPrefab[minigameDifficultyLevel-1], this.transform));
             listButtons[i].DrawAnswerButton(currentQuestion.AnswerProposition[i], i);
+        }
+
+        if(permutationDifficultyLevel == minigameDifficultyLevel)
+        {
+            permutationCoroutine = PermutationCoroutine();
+            StartCoroutine(permutationCoroutine);
         }
     }
 
@@ -71,6 +83,8 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
 
     private IEnumerator CheckAnswerCoroutine(int buttonID)
     {
+        if (permutationCoroutine != null)
+            StopCoroutine(permutationCoroutine);
         yield return new WaitForSeconds(2f);
         if(buttonID == currentQuestion.IndexAnswer)
         {
@@ -87,6 +101,33 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
                 listButtons[i].SetActive(true);
                 listButtons[i].transform.localPosition = Vector3.zero;
             }
+            if (permutationDifficultyLevel == minigameDifficultyLevel)
+            {
+                permutationCoroutine = PermutationCoroutine();
+                StartCoroutine(permutationCoroutine);
+            }
+        }
+    }
+
+
+
+    private IEnumerator PermutationCoroutine()
+    {
+        //yield return new WaitForSeconds(Random.Range(permutationInterval.x, permutationInterval.y));
+        while (true)
+        {
+            permutationIndex += 1;
+            if (permutationIndex >= listButtons.Count)
+                permutationIndex -= listButtons.Count;
+            int index = permutationIndex;
+            for (int i = 0; i < listButtons.Count; i++)
+            {
+                listButtons[i].DrawAnswerButton(currentQuestion.AnswerProposition[index], index);
+                index += 1;
+                if (index >= listButtons.Count)
+                    index -= listButtons.Count;
+            }
+            yield return new WaitForSeconds(Random.Range(permutationInterval.x, permutationInterval.y));
         }
     }
 
