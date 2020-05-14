@@ -6,7 +6,8 @@ using UnityEngine.InputSystem;
 
 public class GameBasketPlayerController : MonoBehaviour
 {
-
+    [SerializeField]
+    SpriteRenderer spriteRenderer;
     [SerializeField]
     Rigidbody2D rigidbodyCursor;
     [SerializeField]
@@ -74,6 +75,10 @@ public class GameBasketPlayerController : MonoBehaviour
         move = new Vector3(value.Get<Vector2>().x, 0, 0);
         move *= speed;
         rigidbodyCursor.velocity = move;
+        if (move.x >= 0)
+            spriteRenderer.flipX = false;
+        else
+            spriteRenderer.flipX = true;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
