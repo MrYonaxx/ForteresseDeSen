@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 public class GameBasketPlayerController : MonoBehaviour
 {
@@ -32,11 +33,11 @@ public class GameBasketPlayerController : MonoBehaviour
     {
         if (canPlay == true)
         {
-            Move();
+            //Move();
         }
     }
 
-    public void Move()
+    /*public void Move()
     {
         if (playerID == 2)
         {
@@ -66,6 +67,13 @@ public class GameBasketPlayerController : MonoBehaviour
         move *= speed;
 
         rigidbodyCursor.velocity = move;// (move * Time.deltaTime);
+    }*/
+
+    public void OnMove(InputValue value)
+    {
+        move = new Vector3(value.Get<Vector2>().x, 0, 0);
+        move *= speed;
+        rigidbodyCursor.velocity = move;
     }
 
     private void OnTriggerEnter2D(Collider2D collision)

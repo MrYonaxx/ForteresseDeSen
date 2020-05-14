@@ -5,6 +5,7 @@
  * Date:       #CREATIONDATE#
 ******************************************************************/
 
+using Sirenix.OdinInspector;
 using UnityEngine;
 using UnityEngine.Events;
 using System.Collections;
@@ -36,8 +37,13 @@ namespace VoiceActing
         [SerializeField]
         float joystickDeadZone = 0.25f;
 
+        [HorizontalGroup]
         [SerializeField]
         bool hold = false;
+
+        [HorizontalGroup]
+        [SerializeField]
+        bool canRepeatJoystickLeft = false;
 
         [SerializeField]
         UnityEvent eventBoutonY;
@@ -84,8 +90,6 @@ namespace VoiceActing
         [SerializeField]
         UnityEvent eventBoutonStart;
 
-        [SerializeField]
-        bool canRepeatJoystickLeft = false;
 
         bool inputLeftStickEnter = false;
         bool inputRightStickEnter = false;

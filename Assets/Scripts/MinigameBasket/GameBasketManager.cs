@@ -99,19 +99,28 @@ public class GameBasketManager : MonoBehaviour, IMinigame
             objectID = currentGameBasketData.ObjectToShoot[index];
         else
             objectID = index;
+
+        GameBasketObject basketObject;
         if (currentGameBasketData.Data.GameBasketObjectDatabase[objectID].GameBasketPrefab != null)
         {
-            GameBasketObject basketObject = Instantiate(currentGameBasketData.Data.GameBasketObjectDatabase[objectID].GameBasketPrefab, transformParent);
+            basketObject = Instantiate(currentGameBasketData.Data.GameBasketObjectDatabase[objectID].GameBasketPrefab, transformParent);
             basketObject.transform.localPosition = new Vector3(positionX, fruitYoffset);
-            basketObject.SetID(objectID);
         }
         else
         {
-            GameBasketObject basketObject = Instantiate(gameBasketObjectPrefab, transformParent);
+            basketObject = Instantiate(gameBasketObjectPrefab, transformParent);
             basketObject.transform.localPosition = new Vector3(positionX, fruitYoffset, transformParent.localPosition.z);
             basketObject.CreateObject(currentGameBasketData.Data.GameBasketObjectDatabase[objectID].ObjectSprite, currentGameBasketData.Data.GameBasketObjectDatabase[objectID].Speed);
+        }
+        if(currentGameBasketData.Data.GameBasketObjectDatabase[objectID].IsClone == true) 
+        {
+            basketObject.SetID(currentGameBasketData.Data.GameBasketObjectDatabase[objectID].CloneID);
+        }
+        else
+        {
             basketObject.SetID(objectID);
         }
+
     }
 
 

@@ -52,6 +52,45 @@ public class GameBasketObjectData
     {
         get { return numberToCollectMax; }
     }
+
+    [HorizontalGroup("BasketObjectCollect2")]
+    [SerializeField]
+    bool isClone;
+    public bool IsClone
+    {
+        get { return isClone; }
+    }
+    [ShowIf("isClone")]
+    [HorizontalGroup("BasketObjectCollect2")]
+    [ValueDropdown("GetAllTypeName")]
+    [SerializeField]
+    int cloneID;
+    public int CloneID
+    {
+        get { return cloneID; }
+    }
+
+    private static List<string> GameDatabase = new List<string>();
+
+    public IList<ValueDropdownItem<int>> GetAllTypeName()
+    {
+        var res = new ValueDropdownList<int>();
+        for (int i = 0; i < GameDatabase.Count; i++)
+            res.Add(GameDatabase[i], i);
+        return res;
+    }
+
+    public void SetGameDatabase(GameBasketObjectData[] gameBasketObjectDatabase)
+    {
+        GameDatabase.Clear();
+        for (int i = 0; i < gameBasketObjectDatabase.Length; i++)
+        {
+            if (gameBasketObjectDatabase[i].GameBasketPrefab != null)
+                GameDatabase.Add(gameBasketObjectDatabase[i].GameBasketPrefab.name);
+            else if (gameBasketObjectDatabase[i].ObjectSprite != null)
+                GameDatabase.Add(gameBasketObjectDatabase[i].ObjectSprite.name);
+        }
+    }
 }
 
 [System.Serializable]
@@ -172,6 +211,11 @@ public class GameBasketData : ScriptableObject
 
     public void SetTurretDatabase()
     {
+        if (gameBasketObjectDatabase.Length != 0)
+        {
+            gameBasketObjectDatabase[0].SetGameDatabase(gameBasketObjectDatabase);
+        }
+
         for (int i = 0; i < patterns.Length; i++)
         {
             for (int j = 0; j < patterns[i].TurretPatterns.Length; j++)
@@ -180,6 +224,7 @@ public class GameBasketData : ScriptableObject
                 return;
             }
         }
+
     }
 
     [Space]

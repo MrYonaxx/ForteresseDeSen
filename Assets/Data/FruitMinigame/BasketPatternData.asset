@@ -23,44 +23,59 @@ MonoBehaviour:
     speed: {x: 0, y: 0}
     numberToCollectMin: 1
     numberToCollectMax: 2
-  - gameBasketPrefab: {fileID: 6547494303160795805, guid: b39b155ac0ffff04281d9cca7d9876ec,
-      type: 3}
-    objectSprite: {fileID: 0}
-    speed: {x: 0, y: 0}
-    numberToCollectMin: 1
-    numberToCollectMax: 2
+    isClone: 0
+    cloneID: 0
   - gameBasketPrefab: {fileID: 2139385266794364144, guid: af0e44ca87e27df4daa83ddaf6d31c1e,
       type: 3}
     objectSprite: {fileID: 0}
     speed: {x: 0, y: 0}
     numberToCollectMin: 1
     numberToCollectMax: 2
+    isClone: 1
+    cloneID: 0
   patterns:
   - note: Pattern1
     turretPatterns:
     - positionX: -1
       time: 0.4
+      shootID: -1
     - positionX: 0
       time: 0.4
+      shootID: -1
     - positionX: 1
       time: 0.4
+      shootID: -1
+    - positionX: 0
+      time: 0
+      shootID: -1
+    - positionX: 0
+      time: 0
+      shootID: -1
   - note: Pattern2
     turretPatterns:
     - positionX: -1
       time: 0.5
+      shootID: 0
     - positionX: -0.5
       time: 0
+      shootID: 0
     - positionX: 0
       time: 0
+      shootID: 0
     - positionX: 0.5
       time: 0
+      shootID: 0
     - positionX: 1
       time: 0
+      shootID: 0
   - note: Pattern3
     turretPatterns:
     - positionX: 1
       time: 0.4
+      shootID: 0
     - positionX: 0
       time: 0.4
+      shootID: 0
     - positionX: -1
       time: 0.4
+      shootID: 0
