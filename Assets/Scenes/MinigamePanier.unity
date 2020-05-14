@@ -2265,7 +2265,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   gameBasketDatabase:
-  - {fileID: 11400000, guid: 5d3b19c651993064da54e40aeda6d31e, type: 2}
+  - {fileID: 11400000, guid: 98501198c6f41e04d9fcfc143d22868a, type: 2}
   gameModeData: {fileID: 0}
   minigameDifficultyLevel: 1
   transformParent: {fileID: 932216394}

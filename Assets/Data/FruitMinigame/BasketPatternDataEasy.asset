@@ -13,54 +13,75 @@ MonoBehaviour:
   m_Name: BasketPatternDataEasy
   m_EditorClassIdentifier: 
   difficultyName: Easy
-  numberObjectShootMin: 50
-  numberObjectShootMax: 60
-  timeBetweenPattern: 1
+  numberObjectShootMin: 20
+  numberObjectShootMax: 30
+  timeBetweenPattern: 3
   gameBasketObjectDatabase:
   - gameBasketPrefab: {fileID: 1581509416765963547, guid: 9876fa2f3d97be642a92f227af6c38e9,
       type: 3}
     objectSprite: {fileID: 0}
     speed: {x: 0, y: 0}
-    numberToCollectMin: 1
-    numberToCollectMax: 2
+    numberToCollectMin: 2
+    numberToCollectMax: 3
+    isClone: 0
+    cloneID: 0
   - gameBasketPrefab: {fileID: 6547494303160795805, guid: b39b155ac0ffff04281d9cca7d9876ec,
       type: 3}
     objectSprite: {fileID: 0}
     speed: {x: 0, y: 0}
-    numberToCollectMin: 1
-    numberToCollectMax: 2
+    numberToCollectMin: 2
+    numberToCollectMax: 3
+    isClone: 0
+    cloneID: 0
   - gameBasketPrefab: {fileID: 2139385266794364144, guid: af0e44ca87e27df4daa83ddaf6d31c1e,
       type: 3}
     objectSprite: {fileID: 0}
     speed: {x: 0, y: 0}
-    numberToCollectMin: 1
-    numberToCollectMax: 2
+    numberToCollectMin: 2
+    numberToCollectMax: 3
+    isClone: 0
+    cloneID: 0
+  - gameBasketPrefab: {fileID: 1581509416765963547, guid: 61c3e036f99f4ac48942e619c7bf4a2a,
+      type: 3}
+    objectSprite: {fileID: 0}
+    speed: {x: 0, y: 0}
+    numberToCollectMin: 2
+    numberToCollectMax: 3
+    isClone: 1
+    cloneID: 0
   patterns:
-  - note: Pattern1
+  - note: 
     turretPatterns:
+    - positionX: -1.5
+      time: 0
+      shootID: 1
+    - positionX: 1.5
+      time: 0
+      shootID: 1
     - positionX: -1
-      time: 0.4
-    - positionX: 0
-      time: 0.4
+      time: 1
+      shootID: 1
     - positionX: 1
-      time: 0.4
-  - note: Pattern2
-    turretPatterns:
-    - positionX: -1
-      time: 0.5
-    - positionX: -0.5
       time: 0
+      shootID: 1
+  - note: 
+    turretPatterns:
     - positionX: 0
       time: 0
+      shootID: 2
+    - positionX: 0
+      time: 1
+      shootID: 2
+  - note: 
+    turretPatterns:
     - positionX: 0.5
       time: 0
-    - positionX: 1
-      time: 0
-  - note: Pattern3
+      shootID: 0
+    - positionX: -0.5
+      time: 1
+      shootID: 3
+  - note: 
     turretPatterns:
-    - positionX: 1
-      time: 0.4
     - positionX: 0
-      time: 0.4
-    - positionX: -1
-      time: 0.4
+      time: 0
+      shootID: -1
