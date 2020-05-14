@@ -1,7 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.InputSystem;
+
+[System.Serializable]
+public class UnityEventPaperObject : UnityEvent<MinigamePaperObject>
+{
+
+}
 
 public class MinigamePaperPlayerController : MonoBehaviour
 {
@@ -11,6 +18,9 @@ public class MinigamePaperPlayerController : MonoBehaviour
     float speed = 20;
     [SerializeField]
     float rotateSpeed = 20;
+
+    [SerializeField]
+    UnityEventPaperObject OnValidate;
 
     float speedX;
     float speedY;
@@ -63,11 +73,11 @@ public class MinigamePaperPlayerController : MonoBehaviour
     {
         if(value.isPressed == true)
         {
-            rotation -= rotateSpeed;
+            rotation += rotateSpeed;
         }
         else
         {
-            rotation += rotateSpeed;
+            rotation -= rotateSpeed;
         }
     }
 
@@ -75,11 +85,11 @@ public class MinigamePaperPlayerController : MonoBehaviour
     {
         if (value.isPressed == true)
         {
-            rotation += rotateSpeed;
+            rotation -= rotateSpeed;
         }
         else
         {
-            rotation -= rotateSpeed;
+            rotation += rotateSpeed;
         }
     }
 
@@ -92,39 +102,42 @@ public class MinigamePaperPlayerController : MonoBehaviour
 
     public void OnInteraction()
     {
-        if(draggedPaper != null)
+        if (draggedPaper != null)
         {
+            draggedPaper.ReleaseObject(move);
             if (onTriggerValidate == true)
             {
-
-            }
-            else
-            {
-                draggedPaper.ReleaseObject(move);
-                draggedPaper = null;
-                return;
-            }
+                OnValidate.Invoke(draggedPaper);
+            }    
+            draggedPaper = null;
         }
-        int layerMask = 1 << 11;
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Vector3.down, out hit, 2, layerMask) == true)
+        else
         {
-            draggedPaper = hit.transform.GetComponent<MinigamePaperObject>();
-            draggedPaper.HoldObject(this.transform);
+            int layerMask = 1 << 11;
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, Vector3.down, out hit, 1, layerMask) == true)
+            {
+                draggedPaper = hit.transform.GetComponent<MinigamePaperObject>();
+                draggedPaper.HoldObject(this.transform);
+            }
         }
     }
 
 
-    public void OnTriggerEnter2D(Collider2D collision)
+    public void OnTriggerEnter(Collider collision)
     {
         if (collision.tag == "Interaction")
+        {
             onTriggerValidate = true;
+        }
     }
 
-    public void OnTriggerExit2D(Collider2D collision)
+    public void OnTriggerExit(Collider collision)
     {
         if (collision.tag == "Interaction")
+        {
             onTriggerValidate = false;
+        }
     }
 
 
