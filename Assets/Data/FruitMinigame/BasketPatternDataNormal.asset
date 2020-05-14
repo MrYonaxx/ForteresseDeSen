@@ -15,76 +15,68 @@ MonoBehaviour:
   difficultyName: Normal
   numberObjectShootMin: 40
   numberObjectShootMax: 60
-  timeBetweenPattern: 0
+  timeBetweenPattern: 2
   gameBasketObjectDatabase:
-  - gameBasketPrefab: {fileID: 0}
-    objectSprite: {fileID: 21300000, guid: 198e2a2f7e143434b8f9b8cc6cfb0198, type: 3}
-    speed: {x: 0, y: -2}
-    numberToCollectMin: 1
-    numberToCollectMax: 3
-  - gameBasketPrefab: {fileID: 0}
-    objectSprite: {fileID: 21300000, guid: 2465abd81fa037d439c03320276e49ad, type: 3}
-    speed: {x: 0, y: -1}
-    numberToCollectMin: 1
-    numberToCollectMax: 5
+  - gameBasketPrefab: {fileID: 1581509416765963547, guid: 9876fa2f3d97be642a92f227af6c38e9,
+      type: 3}
+    objectSprite: {fileID: 0}
+    speed: {x: 0, y: 0}
+    numberToCollectMin: 5
+    numberToCollectMax: 8
+  - gameBasketPrefab: {fileID: 6547494303160795805, guid: b39b155ac0ffff04281d9cca7d9876ec,
+      type: 3}
+    objectSprite: {fileID: 0}
+    speed: {x: 0, y: 0}
+    numberToCollectMin: 5
+    numberToCollectMax: 8
+  - gameBasketPrefab: {fileID: 2139385266794364144, guid: af0e44ca87e27df4daa83ddaf6d31c1e,
+      type: 3}
+    objectSprite: {fileID: 0}
+    speed: {x: 0, y: 0}
+    numberToCollectMin: 5
+    numberToCollectMax: 8
+  - gameBasketPrefab: {fileID: 1581509416765963547, guid: 61c3e036f99f4ac48942e619c7bf4a2a,
+      type: 3}
+    objectSprite: {fileID: 0}
+    speed: {x: 0, y: 0}
+    numberToCollectMin: 5
+    numberToCollectMax: 8
   patterns:
-  - note: Pattern1
+  - note: pattern1
     turretPatterns:
-    - positionX: -0.5
-      time: 1
-    - positionX: 0
-      time: 1
-    - positionX: 0.5
-      time: 1
-  - note: "Pattern1 invers\xE9"
-    turretPatterns:
-    - positionX: 0.5
-      time: 1
-    - positionX: 0
-      time: 1
-    - positionX: -0.5
-      time: 1
-  - note: Pattern ultime
-    turretPatterns:
-    - positionX: -1
-      time: 1
-    - positionX: -0.9
-      time: 0
-    - positionX: -0.8
-      time: 0
-    - positionX: -0.7
-      time: 0
-    - positionX: -0.6
-      time: 0
-    - positionX: -0.5
-      time: 0
-    - positionX: -0.4
-      time: 0
-    - positionX: -0.3
-      time: 0
-    - positionX: -0.2
-      time: 0
-    - positionX: -0.1
-      time: 0
-    - positionX: 0
-      time: 0
-    - positionX: 0.1
-      time: 0
-    - positionX: 0.2
-      time: 0
-    - positionX: 0.3
-      time: 0
-    - positionX: 0.4
-      time: 0
-    - positionX: 0.5
-      time: 0
-    - positionX: 0.6
-      time: 0
-    - positionX: 0.7
-      time: 0
-    - positionX: 0.8
-      time: 0
-    - positionX: 0.9
-      time: 0
     - positionX: 1
       time: 0
+      shootID: 2
+    - positionX: 0
+      time: 0
+      shootID: 1
+    - positionX: -1
+      time: 0
+      shootID: 2
+  - note: pattern2
+    turretPatterns:
+    - positionX: 0.5
+      time: 0
+      shootID: 0
+    - positionX: -0.5
+      time: 0
+      shootID: 0
+  - note: pattern3
+    turretPatterns:
+    - positionX: 0
+      time: 0
+      shootID: 3
+    - positionX: 0
+      time: 0
+      shootID: 3
+  - note: 
+    turretPatterns:
+    - positionX: 1
+      time: 0
+      shootID: 1
+    - positionX: 0
+      time: 0
+      shootID: 2
+    - positionX: -1
+      time: 0
+      shootID: 2
