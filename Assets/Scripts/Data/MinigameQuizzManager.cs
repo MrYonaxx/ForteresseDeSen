@@ -1,11 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using UnityEngine.InputSystem;
 using TMPro;
+using Sirenix.OdinInspector;
 
 public class MinigameQuizzManager : MonoBehaviour, IMinigame
 {
-    [Header("Database")]
+    [Title("Database")]
     [SerializeField]
     MinigameQuizzData[] minigameQuizzDatabase;
     [SerializeField]
@@ -13,7 +16,13 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
     [SerializeField]
     int minigameDifficultyLevel = 1;
 
-    [Header("Permutation Parameter")]
+    [Title("Players")]
+    [SerializeField]
+    PlayerInputManager inputManager;
+    [SerializeField]
+    Vector3[] playerInitialPositions;
+
+    [Title("Permutation Parameter")]
     [SerializeField]
     int permutationDifficultyLevel = 2;
     [SerializeField]
@@ -25,9 +34,13 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
     [SerializeField]
     MinigameAnswerButton[] quizzButtonPrefab;
 
-    [Header("Player")]
     [SerializeField]
-    CursorController[] players;
+    List<CursorController> players = new List<CursorController>();
+
+    [Title("End Minigame")]
+    [SerializeField]
+    UnityEvent eventEnd;
+
 
     public Question currentQuestion;
     List<MinigameAnswerButton> listButtons = new List<MinigameAnswerButton>();
@@ -37,12 +50,31 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
 
     private void Start()
     {
-        InitializeMinigame();//Debug
+        InitializeMinigame();
     }
+
+    private void SetPlayers()
+    {
+        for(int i = 1; i < gameModeData.PlayerName.Length; i++)
+        {
+            inputManager.JoinPlayer(i);
+        }
+    }
+    public void OnPlayerJoined(PlayerInput playerInput) 
+    {
+        players.Add(playerInput.GetComponent<CursorController>());
+        players[players.Count - 1].transform.SetParent(this.transform);
+        players[players.Count - 1].transform.position = playerInitialPositions[players.Count - 1];
+    }
+
+
+
+
 
     public void InitializeMinigame()
     {
-        currentQuestion = minigameQuizzDatabase[Random.Range(0, minigameQuizzDatabase.Length - 1)].CreateQuestion(3);
+        SetPlayers();
+        currentQuestion = minigameQuizzDatabase[Random.Range(0, minigameQuizzDatabase.Length)].CreateQuestion(3);
         CreateAnswerButton();
         DrawQuestion();
     }
@@ -70,7 +102,7 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
 
     public void CheckAnswer(int buttonID)
     {
-        for(int i = 0; i < players.Length; i++)
+        for(int i = 0; i < players.Count; i++)
         {
             players[i].SetCanPlay(false);
         }
@@ -92,7 +124,7 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
         }
         else
         {
-            for (int i = 0; i < players.Length; i++)
+            for (int i = 0; i < players.Count; i++)
             {
                 players[i].SetCanPlay(true);
             }
@@ -129,6 +161,18 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
             }
             yield return new WaitForSeconds(Random.Range(permutationInterval.x, permutationInterval.y));
         }
+    }
+
+
+    public void SetEndMinigame(UnityAction call)
+    {
+        eventEnd.AddListener(call);
+    }
+
+    public void EndMinigame()
+    {
+        eventEnd.Invoke();
+        eventEnd.RemoveAllListeners();
     }
 
 

@@ -146,4 +146,4 @@ MonoBehaviour:
   rigidbody: {fileID: 6547494303160795807}
   spriteRenderer: {fileID: 6547494303160795794}
   speedX: 0
-  speedY: -2.5
+  speedY: -4.5

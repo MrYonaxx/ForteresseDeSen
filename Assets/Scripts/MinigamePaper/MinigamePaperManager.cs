@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
+using Sirenix.OdinInspector;
 
 public class MinigamePaperManager : MonoBehaviour, IMinigame
 {
@@ -23,6 +25,9 @@ public class MinigamePaperManager : MonoBehaviour, IMinigame
     MinigamePaperObject paperPrefab;
     [SerializeField]
     Transform paperBin;
+
+    [SerializeField]
+    UnityEvent eventEnd;
 
     float goodAngle;
 
@@ -57,5 +62,15 @@ public class MinigamePaperManager : MonoBehaviour, IMinigame
         }
     }
 
+    public void SetEndMinigame(UnityAction call)
+    {
+        eventEnd.AddListener(call);
+    }
+
+    public void EndMinigame()
+    {
+        eventEnd.Invoke();
+        eventEnd.RemoveAllListeners();
+    }
 
 }

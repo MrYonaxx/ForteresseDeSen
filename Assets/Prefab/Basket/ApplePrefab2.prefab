@@ -145,5 +145,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   rigidbody: {fileID: 1581509416765963549}
   spriteRenderer: {fileID: 1581509416765963550}
-  speedX: -2
-  speedY: -2
+  speedX: -4
+  speedY: -4

@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.InputSystem;
 
 
 
@@ -23,9 +24,6 @@ public class CursorController : MonoBehaviour
     Rigidbody2D rigidbodyCursor;
     [SerializeField]
     float speed = 500;
-
-    [SerializeField]
-    bool debugPlayer2 = false;
 
     float speedX;
     float speedY;
@@ -49,82 +47,27 @@ public class CursorController : MonoBehaviour
     }
 
 
-    // Start is called before the first frame update
-    void Start()
+    public void OnMove(InputValue value)
     {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        if (canPlay == true)
+        if (canPlay == false)
         {
-            Validate();
-            Move();
+            return;
         }
-    }
-
-    public void Move()
-    {
-        if(debugPlayer2 == true)
-        {
-            if (Mathf.Abs(Input.GetAxis("VerticalRightStick")) != 0)
-            {
-                speedY = Input.GetAxis("VerticalRightStick");
-            }
-            else
-            {
-                speedY = 0;
-            }
-
-            if (Mathf.Abs(Input.GetAxis("HorizontalRightStick")) != 0)
-            {
-                speedX = Input.GetAxis("HorizontalRightStick");
-            }
-            else
-            {
-                speedX = 0;
-            }
-        }
-        else
-        {
-            if (Mathf.Abs(Input.GetAxis("Vertical")) != 0)
-            {
-                speedY = Input.GetAxis("Vertical");
-            }
-            else
-            {
-                speedY = 0;
-            }
-
-            if (Mathf.Abs(Input.GetAxis("Horizontal")) != 0)
-            {
-                speedX = Input.GetAxis("Horizontal");
-            }
-            else
-            {
-                speedX = 0;
-            }
-        }
-
-
-        move = new Vector3(speedX, speedY);
+        move = value.Get<Vector2>();
         move *= speed;
 
-        rigidbodyCursor.velocity = move;// (move * Time.deltaTime);
+        rigidbodyCursor.velocity = move;
     }
-
-    public void Validate()
+    public void OnInteraction()
     {
-        if(Input.GetButtonDown("Fire1"))
+        if (canPlay == false)
         {
-            if (transformCollision.Count == 0)
-                return;
-            OnEventValidate.Invoke(transformCollision[0].GetComponent<MinigameAnswerButton>().GetButtonID()); 
+            return;
         }
+        if (transformCollision.Count == 0)
+            return;
+        OnEventValidate.Invoke(transformCollision[0].GetComponent<MinigameAnswerButton>().GetButtonID());
     }
-
 
     public void OnTriggerEnter2D(Collider2D collision)
     {

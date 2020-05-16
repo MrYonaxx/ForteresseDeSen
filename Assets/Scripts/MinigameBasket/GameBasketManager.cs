@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 using UnityEngine.UI;
 using TMPro;
+using Sirenix.OdinInspector;
 
 public class GameBasketManager : MonoBehaviour, IMinigame
 {
@@ -28,6 +30,10 @@ public class GameBasketManager : MonoBehaviour, IMinigame
     Image[] imageObjectToCollect;
     [SerializeField]
     TextMeshProUGUI[] textObjectToCollect;
+
+
+    [SerializeField]
+    UnityEvent eventEnd;
 
     private int currentShootedObject;
     public GameBasket currentGameBasketData;
@@ -121,6 +127,19 @@ public class GameBasketManager : MonoBehaviour, IMinigame
             basketObject.SetID(objectID);
         }
 
+    }
+
+
+
+    public void SetEndMinigame(UnityAction call)
+    {
+        eventEnd.AddListener(call);
+    }
+
+    public void EndMinigame()
+    {
+        eventEnd.Invoke();
+        eventEnd.RemoveAllListeners();
     }
 
 
