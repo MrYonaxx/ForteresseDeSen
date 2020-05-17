@@ -6,7 +6,7 @@ using UnityEngine.UI;
 using TMPro;
 using Sirenix.OdinInspector;
 
-public class GameBasketManager : MonoBehaviour, IMinigame
+public class GameBasketManager : Minigame
 {
 
     [Header("Database")]
@@ -32,8 +32,6 @@ public class GameBasketManager : MonoBehaviour, IMinigame
     TextMeshProUGUI[] textObjectToCollect;
 
 
-    [SerializeField]
-    UnityEvent eventEnd;
 
     private int currentShootedObject;
     public GameBasket currentGameBasketData;
@@ -43,7 +41,7 @@ public class GameBasketManager : MonoBehaviour, IMinigame
         InitializeMinigame();
     }
 
-    public void InitializeMinigame()
+    public override void InitializeMinigame()
     {
         currentGameBasketData = new GameBasket(gameBasketDatabase[minigameDifficultyLevel-1]);
         DrawCollectObject();
@@ -81,6 +79,7 @@ public class GameBasketManager : MonoBehaviour, IMinigame
 
     private IEnumerator PatternCoroutine()
     {
+        yield return new WaitForSeconds(1.5f);
         for (int j = 0; j < currentGameBasketData.Pattern.Count; j++)
         {
             TurretBasketPattern[] pattern = currentGameBasketData.Data.Patterns[currentGameBasketData.Pattern[j]].TurretPatterns;
@@ -96,6 +95,7 @@ public class GameBasketManager : MonoBehaviour, IMinigame
             }
             yield return new WaitForSeconds(currentGameBasketData.Data.TimeBetweenPattern);
         }
+        EndMinigame();
     }
 
     private void InstantiateProjectile(float positionX, int index, bool objectToShootID = true)
@@ -129,18 +129,6 @@ public class GameBasketManager : MonoBehaviour, IMinigame
 
     }
 
-
-
-    public void SetEndMinigame(UnityAction call)
-    {
-        eventEnd.AddListener(call);
-    }
-
-    public void EndMinigame()
-    {
-        eventEnd.Invoke();
-        eventEnd.RemoveAllListeners();
-    }
 
 
 }

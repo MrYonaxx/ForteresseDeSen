@@ -6,7 +6,7 @@ using UnityEngine.InputSystem;
 using TMPro;
 using Sirenix.OdinInspector;
 
-public class MinigameQuizzManager : MonoBehaviour, IMinigame
+public class MinigameQuizzManager : Minigame
 {
     [Title("Database")]
     [SerializeField]
@@ -37,9 +37,6 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
     [SerializeField]
     List<CursorController> players = new List<CursorController>();
 
-    [Title("End Minigame")]
-    [SerializeField]
-    UnityEvent eventEnd;
 
 
     public Question currentQuestion;
@@ -71,7 +68,7 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
 
 
 
-    public void InitializeMinigame()
+    public override void InitializeMinigame()
     {
         SetPlayers();
         currentQuestion = minigameQuizzDatabase[Random.Range(0, minigameQuizzDatabase.Length)].CreateQuestion(3);
@@ -117,10 +114,10 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
     {
         if (permutationCoroutine != null)
             StopCoroutine(permutationCoroutine);
-        yield return new WaitForSeconds(2f);
+        yield return new WaitForSeconds(1f);
         if(buttonID == currentQuestion.IndexAnswer)
         {
-            Debug.Log("Win");
+            EndMinigame();
         }
         else
         {
@@ -162,19 +159,6 @@ public class MinigameQuizzManager : MonoBehaviour, IMinigame
             yield return new WaitForSeconds(Random.Range(permutationInterval.x, permutationInterval.y));
         }
     }
-
-
-    public void SetEndMinigame(UnityAction call)
-    {
-        eventEnd.AddListener(call);
-    }
-
-    public void EndMinigame()
-    {
-        eventEnd.Invoke();
-        eventEnd.RemoveAllListeners();
-    }
-
 
 }
 

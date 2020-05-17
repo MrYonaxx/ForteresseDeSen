@@ -9,6 +9,11 @@ public class GameModeData : ScriptableObject
 {
     [SerializeField]
     int minigameNumber;
+    public int MinigameNumber
+    {
+        get { return minigameNumber; }
+        set { minigameNumber = value; }
+    }
 
 
     [SerializeField]

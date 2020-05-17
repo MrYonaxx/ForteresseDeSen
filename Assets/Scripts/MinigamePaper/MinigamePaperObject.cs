@@ -4,20 +4,26 @@ using UnityEngine;
 
 public class MinigamePaperObject : MonoBehaviour
 {
-    /*[SerializeField]
-    SpriteRenderer spriteRenderer;
-    [SerializeField]
-    SpriteRenderer shadowSpriteRenderer;
-    [SerializeField]
-    SpriteRenderer[] debugSpriteRenderer;*/
+
     [SerializeField]
     Rigidbody rigidbody;
     [SerializeField]
     BoxCollider boxCollider;
+    [SerializeField]
+    UnityEventInt OnEventValidate;
 
-    public void HoldObject(Transform parent)
+    Transform defaultTransform;
+
+    int playerID = -1;
+
+    public void SetDefaultTransform(Transform parent)
     {
-        //SetOrderShadow(100);
+        defaultTransform = parent;
+    }
+
+    public void HoldObject(Transform parent, int player)
+    {
+        playerID = player;
         this.transform.SetParent(parent);
         rigidbody.isKinematic = true;
         this.transform.localPosition = Vector3.zero;
@@ -25,10 +31,9 @@ public class MinigamePaperObject : MonoBehaviour
 
     public void ReleaseObject(Vector3 releaseForce)
     {
-        //SetOrderShadow(0);
         rigidbody.isKinematic = false;
-        rigidbody.AddForce(releaseForce * 20f);
-        this.transform.SetParent(null);
+        rigidbody.AddForce(releaseForce * 50f);
+        this.transform.SetParent(defaultTransform);
 
     }
 
@@ -37,13 +42,30 @@ public class MinigamePaperObject : MonoBehaviour
         return this.transform.eulerAngles.y;
     }
 
-    public void SetOrderShadow(int newOrder)
+    private void OnTriggerEnter(Collider collision)
     {
-        /*shadowSpriteRenderer.sortingOrder = newOrder-2;
-        spriteRenderer.sortingOrder = newOrder-1;
-        for(int i = 0; i< debugSpriteRenderer.Length; i++)
+        if(collision.transform.tag == "Interaction")
         {
-            debugSpriteRenderer[i].sortingOrder = newOrder;
-        }*/
+            boxCollider.enabled = false;
+            this.transform.SetParent(collision.transform);
+            OnEventValidate.Invoke(playerID);
+            StartCoroutine(MovePaperCoroutine());
+        }   
     }
+
+    private IEnumerator MovePaperCoroutine()
+    {
+        rigidbody.isKinematic = true;
+        float t = 0f;
+        Vector3 initialPosition = this.transform.localPosition;
+        Vector3 initialRotation = this.transform.localEulerAngles;
+        while (t<1f)
+        {
+            t += Time.deltaTime;
+            this.transform.localPosition = Vector3.Lerp(initialPosition, Vector3.zero, t);
+            this.transform.localEulerAngles = Vector3.Lerp(initialRotation, Vector3.zero, t);
+            yield return null;
+        }
+    }
+
 }

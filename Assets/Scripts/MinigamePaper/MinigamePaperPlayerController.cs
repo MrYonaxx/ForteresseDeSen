@@ -16,21 +16,28 @@ public class MinigamePaperPlayerController : MonoBehaviour
     Rigidbody rigidbody;
     [SerializeField]
     float speed = 20;
-    [SerializeField]
-    float rotateSpeed = 20;
+    //[SerializeField]
+    //float rotateSpeed = 20;
 
-    [SerializeField]
-    UnityEventPaperObject OnValidate;
+    //[SerializeField]
+    //UnityEventPaperObject OnValidate;
 
-    float speedX;
-    float speedY;
+    //float speedX;
+    //float speedY;
     Vector3 move;
     float rotation;
 
     MinigamePaperObject draggedPaper;
 
-    bool onTriggerValidate = false;
+    //bool onTriggerValidate = false;
+    int playerID = 0;
     bool canPlay = true;
+
+
+    public void SetID(int id)
+    {
+        playerID = id;
+    }
 
     public void SetCanPlay(bool b)
     {
@@ -42,19 +49,11 @@ public class MinigamePaperPlayerController : MonoBehaviour
         //rigidbody.simulated = b;
     }
 
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
     // Update is called once per frame
     void Update()
     {
         if (canPlay == true)
         {
-            //Validate();
             Rotate();
         }
     }
@@ -71,26 +70,26 @@ public class MinigamePaperPlayerController : MonoBehaviour
 
     public void OnBumperLeft(InputValue value)
     {
-        if(value.isPressed == true)
+        /*if(value.isPressed == true)
         {
             rotation += rotateSpeed;
         }
         else
         {
             rotation -= rotateSpeed;
-        }
+        }*/
     }
 
     public void OnBumperRight(InputValue value)
     {
-        if (value.isPressed == true)
+        /*if (value.isPressed == true)
         {
             rotation -= rotateSpeed;
         }
         else
         {
             rotation += rotateSpeed;
-        }
+        }*/
     }
 
     public void Rotate()
@@ -105,10 +104,6 @@ public class MinigamePaperPlayerController : MonoBehaviour
         if (draggedPaper != null)
         {
             draggedPaper.ReleaseObject(move);
-            if (onTriggerValidate == true)
-            {
-                OnValidate.Invoke(draggedPaper);
-            }    
             draggedPaper = null;
         }
         else
@@ -118,13 +113,13 @@ public class MinigamePaperPlayerController : MonoBehaviour
             if (Physics.Raycast(transform.position, Vector3.down, out hit, 1, layerMask) == true)
             {
                 draggedPaper = hit.transform.GetComponent<MinigamePaperObject>();
-                draggedPaper.HoldObject(this.transform);
+                draggedPaper.HoldObject(this.transform, playerID);
             }
         }
     }
 
 
-    public void OnTriggerEnter(Collider collision)
+    /*public void OnTriggerEnter(Collider collision)
     {
         if (collision.tag == "Interaction")
         {
@@ -138,7 +133,7 @@ public class MinigamePaperPlayerController : MonoBehaviour
         {
             onTriggerValidate = false;
         }
-    }
+    }*/
 
 
 }
